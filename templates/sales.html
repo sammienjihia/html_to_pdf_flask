@@ -1,0 +1,64 @@
+<!doctype html>
+<title>Sales</title>
+<head>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+@media print {
+  
+  #pdf_download_link {
+      display: none;
+  } 
+
+  @page {
+    margin: 0.75in;
+    size: Letter;
+    @top-right {
+      content: counter(page);
+    }
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h2>HTML Table</h2>
+
+<table>
+    <tr>
+    {% for column in sales.colnames%}
+        <th>{{ column }}</th>
+    {% endfor %}
+    </tr>
+    {% for row in sales.rows %}
+    <tr>
+        <td>
+            {{ row[0] }}
+        </td>
+        <td>
+            {{ row[1]}}
+        </td>
+        <td>
+            {{ row[2]}}
+        </td>
+    </tr>
+    {% endfor %}  
+</table>
+<nav><a id="pdf_download_link" href="{{ url_for('makepdf') }}">Get as PDF(WeasyPrint)</a></nav>
+
+</body>
